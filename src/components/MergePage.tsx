@@ -1,6 +1,17 @@
 import { Icon } from "@iconify/react"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import mergePDF, { mergePDFData } from "../functions/mergePDF"
 
 const MergePage = () => {
+  const { register, handleSubmit, watch } = useForm<mergePDFData>()
+  // Input field "files" attributes
+  const filesInputHandler = register("files", { required: true })
+
+  const [mergedFileURL, setMergedFileURL] = useState<string | undefined>()
+
+  // Watch uploaded files stateful
+  const currentFiles = watch("files")
   return (
     <main className="min-h-[100vh] px-6">
       {/* Page Header */}
@@ -12,16 +23,70 @@ const MergePage = () => {
         <div className="">The easiest way to combine PDF Files</div>
       </div>
       {/* File Upload Box */}
-      <div className="md:px-[20%]">
-        <div className="bg-amber-500 border-8 border-amber-400 w-full p-12 flex flex-col gap-4 items-center justify-center">
+      <form
+        className="md:px-[20%]"
+        onSubmit={handleSubmit((data, event) => {
+          mergePDF(data, setMergedFileURL)
+        })}
+      >
+        <label
+          className="bg-amber-500 border-8 border-amber-400 w-full p-12 flex flex-col gap-4 items-center justify-center"
+          htmlFor="files"
+        >
           <Icon icon="codicon:files" className="text-4xl" />
-          <button className="p-2 bg-white text-black rounded-lg font-semibold flex items-center justify-center gap-2">
+          <div className="p-2 bg-white text-black rounded-lg font-semibold flex items-center justify-center gap-2">
             <Icon icon="ant-design:file-add-outlined" />
+            <input
+              className="hidden"
+              type="file"
+              id="files"
+              accept="application/pdf"
+              multiple
+              required
+              {...filesInputHandler}
+              onChange={(event) => {
+                setMergedFileURL(undefined)
+                filesInputHandler.onChange(event)
+              }}
+            />
             Choose your files
-          </button>
+          </div>
           <div className="text-sm">Valid files: *.pdf</div>
+        </label>
+        {/* Only view when files selected */}
+        {currentFiles && (
+          <>
+            {/* Current Files */}
+            <div className="w-full my-2 flex flex-col items-start justify-center ">
+              <div className="self-center text-amber-500">Current Files:</div>
+              {[...currentFiles].map((file, index) => (
+                <div key={index} className="">
+                  {index + 1}. {file.name}
+                </div>
+              ))}
+            </div>
+            {/* Submit */}
+            <div className="w-full my-4 flex justify-center">
+              <button type="submit" className="p-2 bg-amber-500 rounded-lg">
+                Submit
+              </button>
+            </div>
+          </>
+        )}
+      </form>
+      {/* Download merged file */}
+      {mergedFileURL && (
+        <div className="my-4 flex gap-4 items-center justify-center">
+          <div className="p-2 bg-amber-500 rounded-lg">
+            <a
+              href={mergedFileURL}
+              download={`${new Date().toISOString()}.pdf`}
+            >
+              Download Merged File
+            </a>
+          </div>
         </div>
-      </div>
+      )}
     </main>
   )
 }

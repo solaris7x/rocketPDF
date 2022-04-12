@@ -10,18 +10,26 @@ const MergePage = () => {
   // Input field "files" attributes
   const filesInputHandler = register("files", { required: true })
 
+  // Response from mergePDF function
   const [mergedFileURL, setMergedFileURL] = useState<string | undefined>()
+  const [mergeError, setMergeError] = useState<string | undefined>()
 
   // Watch uploaded files stateful
   const [inputFiles, setInputFiles] = useState<dragItemType[]>([])
 
   useEffect(() => {
+    setMergeError(undefined)
     const watchFiles = [...watch("files")].map((file, index) => ({
       id: `${file.name}-${index}`,
       file: file,
     }))
     setInputFiles(watchFiles)
   }, [watch("files")])
+
+  useEffect(() => {
+    // console.log("MergeURL reset")
+    setMergedFileURL(undefined)
+  }, [inputFiles])
 
   return (
     <main className="min-h-[100vh] px-6">
@@ -37,9 +45,11 @@ const MergePage = () => {
       <form
         className="md:px-[20%]"
         onSubmit={handleSubmit((data, event) => {
+          setMergedFileURL(undefined)
           mergePDF(
             inputFiles.map((files) => files.file),
-            setMergedFileURL
+            setMergedFileURL,
+            setMergeError
           )
         })}
       >
@@ -82,6 +92,12 @@ const MergePage = () => {
               </button>
             </div>
           </>
+        )}
+        {/* Merge Error */}
+        {mergeError && (
+          <div className="w-full my-4 flex justify-center">
+            <div className="p-2 bg-red-500 rounded-lg">{`Error: Couldn't load PDF, file may be encrypted or not supported`}</div>
+          </div>
         )}
       </form>
       {/* Download merged file */}

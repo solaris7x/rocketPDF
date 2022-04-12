@@ -33,6 +33,7 @@ export interface dragItemType {
 
 const DropList = (props: DropListProps) => {
   // const [items, setItems] = useState(getItems(5))
+  // console.log(props.items)
 
   const handleDragEnd = ({ active, over }: DragEndEvent) => {
     if (active.id === over?.id || !over) {

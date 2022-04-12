@@ -2,19 +2,25 @@
 
 ## Cliché pdf toolkit
 
-Made with React:18 + pdf-lib
+Made with ❤️ and [React:18][react] + [pdf-lib][pdf-lib]
 
-## Features (planned)
+## Features
 
-- offline support
-- data never leaves your device
-- PWA installable
-- Mobile ready
+- ✅ Secure: data never leaves your device
+- ✅ Mobile ready
+- 👷 Works offline (planned)
+- 👷 PWA installable (planned)
 
-## Current Pages
+## Pages
 
-- Merge PDF
+- ✅ Merge PDF
+- 👷 Reorder pages (planned)
 
 ### FIXME:
 
-- MergePDF: dnd-kit not working on mobile
+- ~~MergePDF: dnd-kit not working on mobile~~ (fixed)
+
+<!-- References -->
+
+[react]: https://github.com/facebook/react/
+[pdf-lib]: https://github.com/Hopding/pdf-lib

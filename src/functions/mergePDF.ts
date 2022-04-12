@@ -6,12 +6,13 @@ export interface mergePDFData {
 }
 
 const mergePDF = async (
-  data: mergePDFData,
+  // data: mergePDFData,
+  files: File[],
   setMergedFileURL: React.Dispatch<React.SetStateAction<string | undefined>>
 ) => {
   //   console.log({ data, event })
 
-  const files = [...data.files]
+  // const files = [...data.files]
   // Create new empty PDF document
   const mergedPdf = await PDFDocument.create()
 

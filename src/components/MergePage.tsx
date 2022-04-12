@@ -1,7 +1,9 @@
 import { Icon } from "@iconify/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
+
 import mergePDF, { mergePDFData } from "../functions/mergePDF"
+import DropList, { dragItemType } from "./MergePage/DropList"
 
 const MergePage = () => {
   const { register, handleSubmit, watch } = useForm<mergePDFData>()
@@ -11,7 +13,16 @@ const MergePage = () => {
   const [mergedFileURL, setMergedFileURL] = useState<string | undefined>()
 
   // Watch uploaded files stateful
-  const currentFiles = watch("files")
+  const [inputFiles, setInputFiles] = useState<dragItemType[]>([])
+
+  useEffect(() => {
+    const watchFiles = [...watch("files")].map((file, index) => ({
+      id: `${file.name}-${index}`,
+      file: file,
+    }))
+    setInputFiles(watchFiles)
+  }, [watch("files")])
+
   return (
     <main className="min-h-[100vh] px-6">
       {/* Page Header */}
@@ -26,7 +37,10 @@ const MergePage = () => {
       <form
         className="md:px-[20%]"
         onSubmit={handleSubmit((data, event) => {
-          mergePDF(data, setMergedFileURL)
+          mergePDF(
+            inputFiles.map((files) => files.file),
+            setMergedFileURL
+          )
         })}
       >
         <label
@@ -54,16 +68,12 @@ const MergePage = () => {
           <div className="text-sm">Valid files: *.pdf</div>
         </label>
         {/* Only view when files selected */}
-        {currentFiles && (
+        {inputFiles.length > 0 && (
           <>
             {/* Current Files */}
             <div className="w-full my-2 flex flex-col items-start justify-center ">
               <div className="self-center text-amber-500">Current Files:</div>
-              {[...currentFiles].map((file, index) => (
-                <div key={index} className="">
-                  {index + 1}. {file.name}
-                </div>
-              ))}
+              <DropList items={inputFiles} setInputFiles={setInputFiles} />
             </div>
             {/* Submit */}
             <div className="w-full my-4 flex justify-center">
@@ -80,7 +90,7 @@ const MergePage = () => {
           <div className="p-2 bg-amber-500 rounded-lg">
             <a
               href={mergedFileURL}
-              download={`${new Date().toISOString()}.pdf`}
+              download={`RocketPDF-${new Date().toISOString()}.pdf`}
             >
               Download Merged File
             </a>

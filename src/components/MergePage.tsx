@@ -1,9 +1,13 @@
 import { Icon } from "@iconify/react"
-import { useEffect, useState } from "react"
+import { lazy, Suspense, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 
-import mergePDF, { mergePDFData } from "../functions/mergePDF"
-import DropList, { dragItemType } from "./MergePage/DropList"
+import { mergePDFData } from "../functions/mergePDF"
+import { dragItemType } from "./MergePage/DropList"
+
+// Lazy Loading
+const DropList = lazy(() => import("./MergePage/DropList"))
+// const mergePDF = lazy(() => import("../functions/mergePDF"))
 
 const MergePage = () => {
   const { register, handleSubmit, watch } = useForm<mergePDFData>()
@@ -44,8 +48,10 @@ const MergePage = () => {
       {/* File Upload Box */}
       <form
         className="md:px-[20%]"
-        onSubmit={handleSubmit((data, event) => {
+        onSubmit={handleSubmit(async (data, event) => {
           setMergedFileURL(undefined)
+          // Lazy load mergePDF function
+          const { default: mergePDF } = await import("../functions/mergePDF")
           mergePDF(
             inputFiles.map((files) => files.file),
             setMergedFileURL,
@@ -83,7 +89,9 @@ const MergePage = () => {
             {/* Current Files */}
             <div className="w-full my-2 flex flex-col items-start justify-center ">
               <div className="self-center text-amber-500">Current Files:</div>
-              <DropList items={inputFiles} setInputFiles={setInputFiles} />
+              <Suspense fallback={<div>Loading...</div>}>
+                <DropList items={inputFiles} setInputFiles={setInputFiles} />
+              </Suspense>
             </div>
             {/* Submit */}
             <div className="w-full my-4 flex justify-center">

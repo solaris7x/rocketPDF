@@ -1,4 +1,3 @@
-import { SubmitHandler } from "react-hook-form"
 import { PDFDocument } from "pdf-lib"
 
 export interface mergePDFData {

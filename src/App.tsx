@@ -1,9 +1,13 @@
-import { useState } from "react"
-import Footer from "./components/Footer"
-import MergePage from "./components/MergePage"
+import { lazy, Suspense, useState } from "react"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+
 import NavBar from "./components/NavBar"
+import Footer from "./components/Footer"
 
 const App = () => {
+  // Lazy loading
+  const MergePage = lazy(() => import("./components/MergePage"))
+
   // DARK: setup
   const [darkMode, setDarkMode] = useState(true)
 
@@ -28,7 +32,34 @@ const App = () => {
           toggleDarkMode={toggleDarkMode}
         />
         <div className="md:mt-20"></div>
-        <MergePage />
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <MergePage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/merge"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <MergePage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <main style={{ padding: "1rem", minHeight: "50vh" }}>
+                  <p>There's nothing here!</p>
+                </main>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
         <Footer
           name="RocketPDF"
           subtitle="A cliche PDF tool"

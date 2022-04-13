@@ -20,7 +20,7 @@ const App = () => {
     <div className={darkMode ? "dark" : ""}>
       <div className="bg-white text-black dark:bg-[#212121] dark:text-white md:mt-0 relative text-xl">
         <NavBar
-          title="RocketPDF"
+          title="Rocket PDF"
           links={[
             {
               name: "Home",
@@ -61,7 +61,7 @@ const App = () => {
           </Routes>
         </BrowserRouter>
         <Footer
-          name="RocketPDF"
+          name="Rocket PDF"
           subtitle="A cliche PDF tool"
           links={[
             {

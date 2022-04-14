@@ -3,10 +3,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 import NavBar from "./components/NavBar"
 import Footer from "./components/Footer"
+import Home from "./pages/Home"
 
 const App = () => {
   // Lazy loading
-  const MergePage = lazy(() => import("./components/MergePage"))
+  const MergePage = lazy(() => import("./pages/MergePage"))
 
   // DARK: setup
   const [darkMode, setDarkMode] = useState(true)
@@ -34,14 +35,7 @@ const App = () => {
         <div className="md:mt-20"></div>
         <BrowserRouter>
           <Routes>
-            <Route
-              path="/"
-              element={
-                <Suspense fallback={<div>Loading...</div>}>
-                  <MergePage />
-                </Suspense>
-              }
-            />
+            <Route path="/" element={<Home />} />
             <Route
               path="/merge"
               element={

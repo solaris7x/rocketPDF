@@ -3,10 +3,10 @@ import { lazy, Suspense, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 
 import { mergePDFData } from "../functions/mergePDF"
-import { dragItemType } from "./MergePage/DropList"
+import { dragItemType } from "../components/MergePage/DropList"
 
 // Lazy Loading
-const DropList = lazy(() => import("./MergePage/DropList"))
+const DropList = lazy(() => import("../components/MergePage/DropList"))
 // const mergePDF = lazy(() => import("../functions/mergePDF"))
 
 const MergePage = () => {

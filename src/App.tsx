@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import NavBar from "./components/NavBar"
 import Footer from "./components/Footer"
 import Home from "./pages/Home"
+import LoadingPage from "./utils/LoadingPage"
+import Page404 from "./utils/Page404"
 
 const App = () => {
   // Lazy loading
@@ -28,6 +30,16 @@ const App = () => {
               href: "/",
               icon: "ant-design:home-outlined",
             },
+            {
+              name: "Features",
+              href: "/#features",
+              icon: "bi:gear-fill",
+            },
+            {
+              name: "Tools",
+              href: "/#tools",
+              icon: "carbon:tools",
+            },
           ]}
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
@@ -39,19 +51,12 @@ const App = () => {
             <Route
               path="/merge"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<LoadingPage />}>
                   <MergePage />
                 </Suspense>
               }
             />
-            <Route
-              path="*"
-              element={
-                <main style={{ padding: "1rem", minHeight: "50vh" }}>
-                  <p>There's nothing here!</p>
-                </main>
-              }
-            />
+            <Route path="*" element={<Page404 />} />
           </Routes>
         </BrowserRouter>
         <Footer
@@ -61,6 +66,14 @@ const App = () => {
             {
               name: "Home",
               href: "/",
+            },
+            {
+              name: "Features",
+              href: "/#features",
+            },
+            {
+              name: "Tools",
+              href: "/#tools",
             },
           ]}
         />

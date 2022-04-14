@@ -16,11 +16,13 @@ const Home = () => {
         <div className="py-2">PDF swiss knife for all PDF editing needs</div>
       </div>
       {/* Features */}
-      <div className="p-10">
-        <h2 className="text-3xl hover:text-amber-500 flex items-center justify-center gap-2 text-center">
-          <Icon icon="bi:gear-fill" className="" />
-          Features
-        </h2>
+      <section id="features" className="p-10">
+        <a href="#features">
+          <h2 className="text-3xl hover:text-amber-500 flex items-center justify-center gap-2 text-center">
+            <Icon icon="bi:gear-fill" className="" />
+            Features
+          </h2>
+        </a>
         <div className="my-8 grid grid-cols-3 gap-8">
           <GridItem
             icon="carbon:flash-filled"
@@ -38,13 +40,15 @@ const Home = () => {
             description="All our services are free to use with no watermark"
           />
         </div>
-      </div>
+      </section>
       {/* Tools grid */}
-      <div className="p-8">
-        <h2 className="text-3xl hover:text-amber-500 flex items-center justify-center gap-2 text-center">
-          <Icon icon="carbon:tools" className="" />
-          Tools
-        </h2>
+      <section id="tools" className="p-8">
+        <a href="#tools">
+          <h2 className="text-3xl hover:text-amber-500 flex items-center justify-center gap-2 text-center">
+            <Icon icon="carbon:tools" className="" />
+            Tools
+          </h2>
+        </a>
         <div className="my-8 mx-12 grid grid-cols-2 gap-8">
           <Link to="/merge">
             <GridItem
@@ -61,7 +65,7 @@ const Home = () => {
             />
           </Link>
         </div>
-      </div>
+      </section>
       {/* Made for everyone  */}
       <div className="py-8 px-14 text-center flex flex-col justify-center items-center">
         <h2 className="text-3xl hover:text-amber-500 flex items-center justify-center gap-2 text-center border-2 p-2">

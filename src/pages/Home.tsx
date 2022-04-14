@@ -23,7 +23,7 @@ const Home = () => {
             Features
           </h2>
         </a>
-        <div className="my-8 grid grid-cols-3 gap-8">
+        <div className="my-8 grid grid-cols-1 md:grid-cols-3 gap-8">
           <GridItem
             icon="carbon:flash-filled"
             title="Fast"
@@ -49,7 +49,7 @@ const Home = () => {
             Tools
           </h2>
         </a>
-        <div className="my-8 mx-12 grid grid-cols-2 gap-8">
+        <div className="my-8 mx-12 grid grid-cols-1 md:grid-cols-2 gap-8">
           <Link to="/merge">
             <GridItem
               icon="carbon:direction-merge-filled"

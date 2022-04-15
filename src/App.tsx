@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from "react"
+import { lazy, Suspense, useEffect, useState } from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 import NavBar from "./components/NavBar"
@@ -10,6 +10,18 @@ import Page404 from "./utils/Page404"
 const App = () => {
   // Lazy loading
   const MergePage = lazy(() => import("./pages/MergePage"))
+
+  useEffect(() => {
+    // Google analytics 4 tracking
+    import("./functions/gAnalytics")
+      .then(({ default: gAnalytics }) => {
+        gAnalytics()
+      })
+      .catch((_) => {
+        console.error("Couldn't load G-Analytics")
+      })
+    // End of GA4
+  }, [])
 
   // DARK: setup
   const [darkMode, setDarkMode] = useState(true)

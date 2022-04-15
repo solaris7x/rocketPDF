@@ -17,6 +17,7 @@ specifiers:
   prettier: ^2.6.2
   react: ^18.0.0
   react-dom: ^18.0.0
+  react-ga4: ^1.4.1
   react-hook-form: ^7.29.0
   react-router-dom: ^6.3.0
   rollup-plugin-visualizer: ^5.6.0
@@ -32,6 +33,7 @@ dependencies:
   pdf-lib: 1.17.1
   react: 18.0.0
   react-dom: 18.0.0_react@18.0.0
+  react-ga4: 1.4.1
   react-hook-form: 7.29.0_react@18.0.0
   react-router-dom: 6.3.0_react-dom@18.0.0+react@18.0.0
 
@@ -1637,6 +1639,10 @@ packages:
       loose-envify: 1.4.0
       react: 18.0.0
       scheduler: 0.21.0
+    dev: false
+
+  /react-ga4/1.4.1:
+    resolution: {integrity: sha512-ioBMEIxd4ePw4YtaloTUgqhQGqz5ebDdC4slEpLgy2sLx1LuZBC9iYCwDymTXzcntw6K1dHX183ulP32nNdG7w==}
     dev: false
 
   /react-hook-form/7.29.0_react@18.0.0:
